@@ -1,0 +1,146 @@
+**Tugas 8**
+
+- Perhatikan gambar dibawah ini!
+
+    [https://lh6.googleusercontent.com/sp75IsyAe708Id2QYitHqBVyNbOySHYJXB6ZNBzmaemJYCzjWvGoNQOC6gMSdJBmvq7XBmPGVbrFEIuilwL9_At9GFGpIIpHbQP0rzRQFd9iIQ4vhEK_xrQdVTsaX7LhbdHfGD9s](https://lh6.googleusercontent.com/sp75IsyAe708Id2QYitHqBVyNbOySHYJXB6ZNBzmaemJYCzjWvGoNQOC6gMSdJBmvq7XBmPGVbrFEIuilwL9_At9GFGpIIpHbQP0rzRQFd9iIQ4vhEK_xrQdVTsaX7LhbdHfGD9s)
+
+    Silahkan teman-teman buat table tugas_populasi di dalam database belajar. Struktur serta isi data tabel disamakan dengan gambar diatas. Jika sudah, silahkan kerjakan tugas berikut:
+
+1. Tampilkan kolom kota, kec, luas dan penduduk!
+
+        MariaDB [belajar]> SELECT
+            -> kota, kec, luas, penduduk
+            -> FROM tugas_populasi;
+        +-----------+------+--------+----------+
+        | kota      | kec  | luas   | penduduk |
+        +-----------+------+--------+----------+
+        | Jakarta   |   44 | 664.01 |  9988495 |
+        | Surabaya  |   31 | 350.54 |  2805906 |
+        | Medan     |   21 | 265.00 |  2465469 |
+        | Bekasi    |   12 | 206.61 |  2381053 |
+        | Bandung   |   30 | 167.67 |  2339463 |
+        | Makassar  |   14 | 199.26 |  1651146 |
+        | Depok     |   11 | 200.29 |  1631951 |
+        | Semarang  |   16 | 373.78 |  1621384 |
+        | Tangerang |   13 | 153.93 |  1566190 |
+        | Palembang |   14 | 369.22 |  1548064 |
+        +-----------+------+--------+----------+
+        10 rows in set (0.000 sec)
+
+2. Tampilkan kolom kota kemudian ubah namanya menjadi Nama Kota, kolom kec menjadi Jumlah Kecamatan dan kolom kel menjadi Jumlah Kelurahan!
+
+        MariaDB [belajar]> SELECT
+            -> kota AS 'Nama Kota',
+            -> kec AS 'Jumlah Kecamatan',
+            -> kel AS 'Jumlah Kelurahan'
+            -> FROM tugas_populasi;
+        +-----------+------------------+------------------+
+        | Nama Kota | Jumlah Kecamatan | Jumlah Kelurahan |
+        +-----------+------------------+------------------+
+        | Jakarta   |               44 |              267 |
+        | Surabaya  |               31 |              154 |
+        | Medan     |               21 |              151 |
+        | Bekasi    |               12 |               56 |
+        | Bandung   |               30 |              151 |
+        | Makassar  |               14 |              143 |
+        | Depok     |               11 |               63 |
+        | Semarang  |               16 |              177 |
+        | Tangerang |               13 |              104 |
+        | Palembang |               14 |              107 |
+        +-----------+------------------+------------------+
+        10 rows in set (0.001 sec)
+
+3. Tampilkan data dari table tugas_populasi berdasarkan Kecamatan dari jumlah terbesar!
+
+        MariaDB [belajar]> SELECT * FROM tugas_populasi
+            -> ORDER BY kec DESC;
+        +-----------+------+------+--------+----------+
+        | kota      | kec  | kel  | luas   | penduduk |
+        +-----------+------+------+--------+----------+
+        | Jakarta   |   44 |  267 | 664.01 |  9988495 |
+        | Surabaya  |   31 |  154 | 350.54 |  2805906 |
+        | Bandung   |   30 |  151 | 167.67 |  2339463 |
+        | Medan     |   21 |  151 | 265.00 |  2465469 |
+        | Semarang  |   16 |  177 | 373.78 |  1621384 |
+        | Makassar  |   14 |  143 | 199.26 |  1651146 |
+        | Palembang |   14 |  107 | 369.22 |  1548064 |
+        | Tangerang |   13 |  104 | 153.93 |  1566190 |
+        | Bekasi    |   12 |   56 | 206.61 |  2381053 |
+        | Depok     |   11 |   63 | 200.29 |  1631951 |
+        +-----------+------+------+--------+----------+
+        10 rows in set (0.001 sec)
+
+4. Urutkan berdasarkan kolom kel lalu diambil 5 data setelah baris ke-2!
+
+        MariaDB [belajar]> SELECT * FROM tugas_populasi
+            -> ORDER BY kel DESC
+            -> LIMIT 2,5;
+        +-----------+------+------+--------+----------+
+        | kota      | kec  | kel  | luas   | penduduk |
+        +-----------+------+------+--------+----------+
+        | Surabaya  |   31 |  154 | 350.54 |  2805906 |
+        | Medan     |   21 |  151 | 265.00 |  2465469 |
+        | Bandung   |   30 |  151 | 167.67 |  2339463 |
+        | Makassar  |   14 |  143 | 199.26 |  1651146 |
+        | Palembang |   14 |  107 | 369.22 |  1548064 |
+        +-----------+------+------+--------+----------+
+        5 rows in set (0.001 sec)
+
+5. Tampilkan data dimana kolom kota berisi string Depok!
+
+        MariaDB [belajar]> SELECT *
+            -> FROM tugas_populasi
+            -> WHERE kota = "Depok";
+        +-------+------+------+--------+----------+
+        | kota  | kec  | kel  | luas   | penduduk |
+        +-------+------+------+--------+----------+
+        | Depok |   11 |   63 | 200.29 |  1631951 |
+        +-------+------+------+--------+----------+
+        1 row in set (0.001 sec)
+        
+        MariaDB [belajar]>
+
+    - Perhatikan gambar dibawah ini!
+
+        [https://lh4.googleusercontent.com/pRpf9Ib8LllYOpiAPv3T4k5Uk00Mb7JyfNnlElfK5QewQY_6om0UEzXmk6sh7FJ5gkjZB0QmkfRPy4iqZ8-5diAIeFn6XPkDe5NgYItOXdpvrgrUBKKyYkIgMp27tWImkLiNjAtW](https://lh4.googleusercontent.com/pRpf9Ib8LllYOpiAPv3T4k5Uk00Mb7JyfNnlElfK5QewQY_6om0UEzXmk6sh7FJ5gkjZB0QmkfRPy4iqZ8-5diAIeFn6XPkDe5NgYItOXdpvrgrUBKKyYkIgMp27tWImkLiNjAtW)
+
+        Silahkan teman-teman buat table tugas_daftar_provinsi di dalam database belajar. Struktur serta isi data tabel disamakan dengan gambar diatas. Jika sudah, silahkan kerjakan tugas berikut:
+
+6. Tuliskan query untuk menampilkan hasil berikut
+
+    [https://lh4.googleusercontent.com/E1W8jQDyHJHy31UJFCuU0YzbOyeZ_mADF4l8-q6Nz3ZxIWpsup_PFoQZp_F9kzuTbkiUUKr6Hd4QPFoTct15Jby9B5pg_oByPn9CqX_2x42T1BGXCQR9tPKOa1rsyQL68U-WWJ35](https://lh4.googleusercontent.com/E1W8jQDyHJHy31UJFCuU0YzbOyeZ_mADF4l8-q6Nz3ZxIWpsup_PFoQZp_F9kzuTbkiUUKr6Hd4QPFoTct15Jby9B5pg_oByPn9CqX_2x42T1BGXCQR9tPKOa1rsyQL68U-WWJ35)
+
+    **Note: Gunakan query SELECT… WHERE table tugas_provinsi = tugas_daftar_provinsi**
+
+        MariaDB [belajar]> SELECT
+            -> tugas_daftar_provinsi.prov,
+            -> tugas_provinsi.kota,
+            -> tugas_provinsi.penduduk
+            -> FROM tugas_daftar_provinsi, tugas_provinsi
+            -> WHERE kota=ibukota
+            -> ORDER BY penduduk DESC;
+        +------------------+-----------+----------+
+        | prov             | kota      | penduduk |
+        +------------------+-----------+----------+
+        | Sumatera Utara   | Medan     |  2465469 |
+        | Jawa Barat       | Bandung   |  2339463 |
+        | Sulawesi Selatan | Makassar  |  1651146 |
+        | Jawa Tengah      | Semarang  |  1621384 |
+        | Sumatera Selatan | Palembang |  1548064 |
+        +------------------+-----------+----------+
+        5 rows in set (0.045 sec)
+
+7. Tampilkan isi tabel populasi dimana nilai kolom kecamatan antara 20 dan 30!
+
+        MariaDB [belajar]> SELECT *
+            -> FROM populasi
+            -> WHERE kec
+            -> BETWEEN 20 AND 30
+            -> ;
+        +---------+------+------+--------+----------+
+        | kota    | kec  | kel  | luas   | penduduk |
+        +---------+------+------+--------+----------+
+        | Medan   |   21 |  151 | 265.00 |  2465469 |
+        | Bandung |   30 |  151 | 167.67 |  2339463 |
+        +---------+------+------+--------+----------+
+        2 rows in set (0.293 sec)
